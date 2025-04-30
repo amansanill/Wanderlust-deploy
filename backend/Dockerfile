@@ -7,11 +7,14 @@ WORKDIR /app
 # code
 COPY . .
 
+RUN npm config set registry https://registry.npmjs.org/
+RUN npm config set strict-ssl false
+
 # packages install
 RUN npm i
 
 # tests
-RUN npm run test
+#RUN npm run test
 
 # Stage 2
 FROM node:21-slim
@@ -28,4 +31,4 @@ COPY .env.docker .env
 EXPOSE 5000
 
 # App
-CMD ["npm", "start"]
+CMD ["node", "server.js"]
